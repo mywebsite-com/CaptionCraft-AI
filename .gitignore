@@ -1,0 +1,14 @@
+# Secrets - never upload these to GitHub
+.env
+backend/.env
+.env.*
+!.env.example
+!backend/.env.example
+
+# Dependencies
+node_modules/
+
+# Logs and OS files
+*.log
+.DS_Store
+Thumbs.db

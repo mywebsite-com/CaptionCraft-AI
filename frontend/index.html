@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CaptionCraft AI</title>
+  <meta name="description" content="Upload a product or fashion image and get an Instagram caption and hashtags." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z" fill="currentColor"/></svg>
+      <span>CaptionCraft AI</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="intro">
+      <h1>Upload a photo. Get the caption and hashtags.</h1>
+      <p>CaptionCraft looks at your product or fashion image and writes an Instagram caption that fits it.</p>
+    </section>
+
+    <!-- Shown only when the server has no API key yet -->
+    <div id="setupBanner" class="banner" role="status" hidden>
+      <strong>Setup needed.</strong>
+      Add your API key to <code>backend/.env</code> and restart the server. The README has the exact steps.
+    </div>
+
+    <div class="layout">
+      <!-- LEFT: upload + options -->
+      <section class="card" aria-labelledby="uploadTitle">
+        <h2 id="uploadTitle">Your image</h2>
+
+        <div id="dropzone" class="dropzone" tabindex="0" role="button"
+             aria-label="Upload an image. Click or drop a file here.">
+          <svg class="drop-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p class="drop-main">Drag an image here, or click to browse</p>
+          <p class="drop-sub">JPG, JPEG, PNG or WEBP, up to 10 MB</p>
+        </div>
+
+        <input id="fileInput" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" hidden />
+
+        <div id="previewWrap" class="preview-wrap" hidden>
+          <img id="previewImg" alt="Preview of your uploaded image" />
+          <div class="preview-actions">
+            <button type="button" id="replaceBtn" class="btn btn-ghost">Replace image</button>
+            <button type="button" id="removeBtn" class="btn btn-ghost">Remove image</button>
+          </div>
+        </div>
+
+        <p id="uploadError" class="error" role="alert" hidden></p>
+
+        <fieldset class="field">
+          <legend>Content style</legend>
+          <div id="styleOptions" class="chips" role="radiogroup" aria-label="Content style"></div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>Number of hashtags</legend>
+          <div id="countOptions" class="chips" role="radiogroup" aria-label="Number of hashtags"></div>
+        </fieldset>
+
+        <button type="button" id="generateBtn" class="btn btn-primary btn-block">
+          <span class="btn-label">Generate Caption</span>
+          <span class="spinner" aria-hidden="true"></span>
+        </button>
+        <p id="generateError" class="error" role="alert" hidden></p>
+      </section>
+
+      <!-- RIGHT: results -->
+      <section class="results" aria-live="polite">
+        <div id="emptyState" class="card empty">
+          <h2>Your caption will appear here</h2>
+          <p>Upload an image, choose a style and select Generate Caption.</p>
+        </div>
+
+        <div id="resultCards" hidden>
+          <article class="card result-card">
+            <h2>Caption</h2>
+            <p id="captionText" class="caption-text"></p>
+            <button type="button" id="copyCaptionBtn" class="btn btn-secondary">Copy Caption</button>
+          </article>
+
+          <article class="card result-card">
+            <h2>Hashtags</h2>
+            <p id="hashtagText" class="hashtag-text"></p>
+            <button type="button" id="copyHashtagsBtn" class="btn btn-secondary">Copy Hashtags</button>
+          </article>
+
+          <div class="result-actions">
+            <button type="button" id="copyAllBtn" class="btn btn-primary">Copy All</button>
+            <button type="button" id="againBtn" class="btn btn-ghost">Generate Again</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

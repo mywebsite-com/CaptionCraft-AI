@@ -1,0 +1,19 @@
+{
+  "name": "captioncraft-ai",
+  "version": "1.0.0",
+  "description": "Upload a product or fashion image and get an Instagram caption and hashtags written by a multimodal AI model.",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node --watch backend/server.js",
+    "models": "node backend/list-models.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "license": "MIT"
+}
